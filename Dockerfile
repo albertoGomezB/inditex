@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Copy the Maven build artifact-*
-COPY target/*.jar app.jar
+COPY target/inditex-technical-test-1.0-SNAPSHOT.jar app.jar
 
 # Expose the application port
 EXPOSE 8080
