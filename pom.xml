@@ -148,7 +148,7 @@
                             <apiPackage>com.inditex.api</apiPackage>
                             <modelPackage>com.inditex.model</modelPackage>
                             <configOptions>
-                                <interfaceOnly>false</interfaceOnly>
+                                <interfaceOnly>true</interfaceOnly>
                                 <useJakartaEe>true</useJakartaEe>
                             </configOptions>
                         </configuration>
