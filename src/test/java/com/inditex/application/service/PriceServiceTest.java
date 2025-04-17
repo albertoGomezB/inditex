@@ -2,7 +2,7 @@ package com.inditex.application.service;
 
 import com.inditex.application.dto.PriceDTO;
 import com.inditex.application.mapper.PriceMapper;
-import com.inditex.domain.exception.PriceListEmptyException;
+import com.inditex.domain.exception.PriceNotFoundException;
 import com.inditex.domain.model.Price;
 import com.inditex.infraestructure.adapter.out.persistence.PriceRepository;
 import org.junit.jupiter.api.Test;
@@ -89,7 +89,7 @@ class PriceServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenNoPriceFound() {
+    void shouldThrowExceptionWhenNoPriceFoundOrWithListIsEmpty() {
         Long productId = 35455L;
         Long brandId = 1L;
         LocalDateTime applicationDate = LocalDateTime.of(2021, 1, 1, 0, 0);
@@ -98,7 +98,19 @@ class PriceServiceTest {
                 productId, brandId, applicationDate, applicationDate))
                 .thenReturn(List.of());
 
-        assertThrows(PriceListEmptyException.class,
+        assertThrows(PriceNotFoundException.class,
                 () -> priceService.getPrice(productId, brandId, applicationDate));
     }
+
+    @Test
+    void shouldThrowExceptionWhenProductIdIsNull() {
+
+        Long brandId = 1L;
+        LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 10, 0);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> priceService.getPrice(null, brandId, applicationDate));
+    }
+
+
 }

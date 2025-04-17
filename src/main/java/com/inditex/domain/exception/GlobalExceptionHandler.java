@@ -13,29 +13,23 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(PriceNotFoundException.class)
     public ResponseEntity<ApiError> handlePriceNotFoundException(PriceNotFoundException ex, WebRequest request) {
-
-        ApiError apiError = ApiError.builder()
-                .message(ex.getMessage())
-                .error("Price not found")
-                .status(HttpStatus.NOT_FOUND.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getDescription(false))
-                .build();
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+        return buildResponseEntity(ex.getMessage(), "Price not found", HttpStatus.NO_CONTENT, request);
     }
 
-    @ExceptionHandler(PriceListEmptyException.class)
-    public ResponseEntity<ApiError> handlePriceListEmptyException(PriceListEmptyException ex, WebRequest request) {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+        return buildResponseEntity(ex.getMessage(), "Invalid input", HttpStatus.BAD_REQUEST, request);
+    }
 
+    private ResponseEntity<ApiError> buildResponseEntity(String message, String error, HttpStatus status, WebRequest request) {
         ApiError apiError = ApiError.builder()
-                .message(ex.getMessage())
-                .error("No prices available")
-                .status(HttpStatus.NO_CONTENT.value())
+                .message(message)
+                .error(error)
+                .status(status.value())
                 .timestamp(LocalDateTime.now())
                 .path(request.getDescription(false))
                 .build();
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(apiError);
+        return ResponseEntity.status(status).body(apiError);
     }
 }

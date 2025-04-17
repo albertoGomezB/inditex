@@ -84,6 +84,13 @@ To run the application using Docker, follow these steps:
 - **H2 Console**: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)  
   Web-based console to connect to the H2 in-memory database and inspect data.
 
+### 5. Generate OpenApi Generator Files
+To generate the OpenAPI files, run the following command:
+
+```bash
+mvn clean package install
+```
+
 ## Author
 - **Name**: Alberto Gómez Barral
 - **Role**: Java Back-End Developer

@@ -2,7 +2,6 @@ package com.inditex.application.service;
 
 import com.inditex.application.dto.PriceDTO;
 import com.inditex.application.mapper.PriceMapper;
-import com.inditex.domain.exception.PriceListEmptyException;
 import com.inditex.domain.exception.PriceNotFoundException;
 import com.inditex.domain.model.Price;
 import com.inditex.infraestructure.adapter.out.persistence.PriceRepository;
@@ -33,13 +32,13 @@ public class PriceServiceImpl implements IPriceService {
                 productId, brandId, applicationDate, applicationDate);
 
         if (prices.isEmpty()) {
-            throw new PriceListEmptyException("The list of the price is empty");
+            throw new PriceNotFoundException("The list of the price is empty and the price not found");
         }
 
         // Sort the prices by priority
         Price priotiryPrice = prices.stream()
                 .max((p1, p2) -> p1.getPriority().compareTo(p2.getPriority()))
-                .orElseThrow(() -> new PriceNotFoundException("Price not found"));
+                .orElseThrow(() -> new PriceNotFoundException("Price not found with that priority"));
 
         // Map the price to the DTO
         return priceMapper.toPriceDTO(priotiryPrice);

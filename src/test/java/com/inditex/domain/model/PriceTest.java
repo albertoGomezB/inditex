@@ -1,6 +1,5 @@
-package com.inditex.domain;
+package com.inditex.domain.model;
 
-import com.inditex.domain.model.Price;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
