@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PriceServiceServiceImpl implements IPriceService {
+public class PriceServiceImpl implements IPriceService {
 
     private final PriceRepository priceRepository;
     private final PriceMapper priceMapper;
