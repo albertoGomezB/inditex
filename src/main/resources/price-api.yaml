@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Inditex Price Service API
+  description: API for searching prices based on productId, brandId, and application date.
+  version: "1.0"
+  termsOfService: https://www.inditex.com/terms
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/prices:
+    get:
+      tags:
+        - price-controller
+      summary: Get price details for a product
+      description: Search the price of a product based on productId, brandId, and application date.
+      parameters:
+        - name: productId
+          in: query
+          description: productId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: brandId
+          in: query
+          description: brandId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: applicationDate
+          in: query
+          description: applicationDate
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Price details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceDTO'
+              example:
+                productId: 9007199254740991
+                brandId: 9007199254740991
+                priceList: 9007199254740991
+                startDate: "2025-04-16T11:50:12.359Z"
+                endDate: "2025-04-16T11:50:12.359Z"
+                price: 0.1
+                curr: "EUR"
+        '204':
+          description: No content available
+        '400':
+          description: Invalid input
+        '404':
+          description: Price not found
+
+components:
+  schemas:
+    PriceDTO:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        brandId:
+          type: integer
+          format: int64
+        priceList:
+          type: integer
+          format: int64
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        price:
+          type: number
+          format: double
+        curr:
+          type: string
